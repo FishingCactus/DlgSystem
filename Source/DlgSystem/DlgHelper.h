@@ -478,28 +478,29 @@ public:
 		OutArray.Append(UniqueNamesArray);
 	}
 
-	FORCEINLINE static bool IsPossiblyAllocatedUObjectPointer(const void* Ptr)
-	{
-		auto CountByteValues = [](UPTRINT Val, UPTRINT ByteVal) -> int32
-		{
-			int32 Result = 0;
+	// :NOTE: This generates an error during static analysis, but is not used anywhere
+	//FORCEINLINE static bool IsPossiblyAllocatedUObjectPointer(const void* Ptr)
+	//{
+	//	auto CountByteValues = [](UPTRINT Val, UPTRINT ByteVal) -> int32
+	//	{
+	//		int32 Result = 0;
 
-			for (int32 I = 0; I != sizeof(UPTRINT); ++I)
-			{
-				if ((Val & 0xFF) == ByteVal)
-				{
-					++Result;
-				}
-				Val >>= 8;
-			}
+	//		for (int32 I = 0; I != sizeof(UPTRINT); ++I)
+	//		{
+	//			if ((Val & 0xFF) == ByteVal)
+	//			{
+	//				++Result;
+	//			}
+	//			Val >>= 8;
+	//		}
 
-			return Result;
-		};
+	//		return Result;
+	//	};
 
-		const UPTRINT PtrVal = (UPTRINT)Ptr;
-		// (void*) - 1 Is technically a valid address 0xffffffff, but is it?
-		return Ptr != nullptr && Ptr != ((void*) - 1) && PtrVal >= 0x1000 && CountByteValues(PtrVal, 0xCD) < sizeof(UPTRINT) / 2;
-	}
+	//	const UPTRINT PtrVal = (UPTRINT)Ptr;
+	//	// (void*) - 1 Is technically a valid address 0xffffffff, but is it?
+	//	return Ptr != nullptr && Ptr != ((void*) - 1) && PtrVal >= 0x1000 && CountByteValues(PtrVal, 0xCD) < sizeof(UPTRINT) / 2;
+	//}
 
 	/** Very low level and safe way to check if the object is valid. Kinda slow but safe. */
 	static bool IsValidLowLevel(const UObject* Object)

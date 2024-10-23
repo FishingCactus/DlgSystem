@@ -485,7 +485,7 @@ bool FDlgJsonWriter::UStructToJsonAttributes(const UStruct* StructDefinition, co
 			continue;
 
 		// Check to see if we should ignore this property
-		if (CheckFlags != 0 && !Property->HasAnyPropertyFlags(CheckFlags))
+		if (/*CheckFlags != 0 && */!Property->HasAnyPropertyFlags(CheckFlags))
 		{
 			// Property does not have the required Flags
 			if (bLogVerbose)

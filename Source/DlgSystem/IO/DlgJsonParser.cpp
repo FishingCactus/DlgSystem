@@ -804,7 +804,7 @@ bool FDlgJsonParser::JsonAttributesToUStruct(const TMap<FString, TSharedPtr<FJso
 		const FString PropertyName = Property->GetName();
 
 		// Check to see if we should ignore this property
-		if (CheckFlags != 0 && !Property->HasAnyPropertyFlags(CheckFlags))
+		if ( /*CheckFlags != 0 && */ !Property->HasAnyPropertyFlags(CheckFlags))
 		{
 			continue;
 		}
