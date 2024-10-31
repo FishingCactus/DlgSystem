@@ -19,6 +19,12 @@ public:
 	TArray<FGuid> GUIDList;
 };
 
+FORCEINLINE FArchive & operator<<(FArchive & Ar, FDlgNodeSavedData& Data)
+{
+    Ar << Data.GUIDList;
+    return Ar;
+}
+
 
 USTRUCT(BlueprintType)
 struct DLGSYSTEM_API FDlgHistory
@@ -90,6 +96,14 @@ public:
 	UPROPERTY()
 	TMap<FGuid, FDlgNodeSavedData> NodeData;
 };
+
+FORCEINLINE FArchive & operator<<(FArchive & Ar, FDlgHistory& Data)
+{
+    Ar << Data.VisitedNodeIndices;
+    Ar << Data.VisitedNodeGUIDs;
+    Ar << Data.NodeData;
+    return Ar;
+}
 
 // Singleton to store Dialogue history
 // TODO: investigate if this is multiplayer friendly, it does not seem so as there exists only a single global dialogue memory
