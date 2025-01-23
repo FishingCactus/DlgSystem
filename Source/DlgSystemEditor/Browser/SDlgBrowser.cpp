@@ -111,7 +111,6 @@ void SDlgBrowser::Construct(const FArguments& InArgs)
 
 	RootTreeItem = MakeShared<FDialogueBrowserTreeRootNode>();
 	ParticipantsTreeView = SNew(STreeView<TSharedPtr<FDlgBrowserTreeNode>>)
-		//.ItemHeight(32)
 		.TreeItemsSource(&RootChildren)
 		.OnGenerateRow(this, &Self::HandleGenerateRow)
 		.OnSelectionChanged(this, &Self::HandleTreeSelectionChanged)
