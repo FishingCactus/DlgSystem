@@ -31,7 +31,6 @@ void SDlgDataDisplay::Construct(const FArguments& InArgs, const TWeakObjectPtr<c
 	WorldContextObjectPtr = InWorldContextObjectPtr;
 	RootTreeItem = MakeShared<FDlgDataDisplayTreeRootNode>();
 	ActorsTreeView = SNew(STreeView<TSharedPtr<FDlgDataDisplayTreeNode>>)
-		.ItemHeight(32)
 		.TreeItemsSource(&RootChildren)
 		.OnGenerateRow(this, &Self::HandleGenerateRow)
 		.OnSelectionChanged(this, &Self::HandleTreeSelectionChanged)

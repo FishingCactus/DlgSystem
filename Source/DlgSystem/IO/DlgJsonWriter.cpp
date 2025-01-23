@@ -409,7 +409,7 @@ TSharedPtr<FJsonValue> FDlgJsonWriter::PropertyToJsonValue(const FProperty* Prop
 		IndexInArray = Index;
 
 		// ValuePtr + Index * Property->ElementSize is literally FScriptArrayHelper::GetRawPtr
-		const TSharedPtr<FJsonValue> JsonValue = ConvertScalarPropertyToJsonValue(Property, ContainerPtr, ValueIntPtr + Index * Property->ElementSize);
+		const TSharedPtr<FJsonValue> JsonValue = ConvertScalarPropertyToJsonValue(Property, ContainerPtr, ValueIntPtr + Index * Property->GetElementSize());
 		if (JsonValue.IsValid())
 		{
 			Array.Add(JsonValue);

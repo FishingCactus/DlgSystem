@@ -279,8 +279,8 @@ TSharedRef<SWidget> SDlgTextPropertyPickList::GetListViewWidget()
 		.SelectionMode(ESelectionMode::Single)
 		.ListItemsSource(&Suggestions)
 		.OnGenerateRow(this, &Self::HandleListGenerateRow)
-		.OnSelectionChanged(this, &Self::HandleListSelectionChanged)
-		.ItemHeight(20);
+		.OnSelectionChanged(this, &Self::HandleListSelectionChanged);
+		//.ItemHeight(20);
 
 	ListViewContainerWidget->SetContent(CreateShadowOverlay(ListViewWidget.ToSharedRef()));
 

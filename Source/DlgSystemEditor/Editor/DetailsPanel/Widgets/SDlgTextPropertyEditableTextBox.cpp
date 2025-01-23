@@ -506,8 +506,8 @@ FText SDlgTextPropertyEditableTextBox::GetToolTipText() const
 				bIsLocalized = !TextId.IsEmpty();
 				if (bIsLocalized)
 				{
-					Namespace = TextId.GetNamespace().GetChars();
-					Key = TextId.GetKey().GetChars();
+					Namespace = TextId.GetNamespace().ToString();
+					Key = TextId.GetKey().ToString();
 				}
 #else
 				bIsLocalized = FTextLocalizationManager::Get().FindNamespaceAndKeyFromDisplayString(FTextInspector::GetSharedDisplayString(TextValue), Namespace, Key);
@@ -958,7 +958,7 @@ void SDlgTextPropertyEditableTextBox::HandleLocalizableCheckStateChanged(ECheckB
 					NewKey
 					);
 
-				EditableTextProperty->SetText(TextIndex, FInternationalization::Get().ForUseOnlyByLocMacroAndGraphNodeTextLiterals_CreateText(*PropertyValue.ToString(), *NewNamespace, *NewKey));
+				EditableTextProperty->SetText(TextIndex, FText::AsLocalizable_Advanced(*NewNamespace, *NewKey, *PropertyValue.ToString()));
 			}
 		}
 	}
