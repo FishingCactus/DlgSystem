@@ -501,13 +501,19 @@ FText SDlgTextPropertyEditableTextBox::GetToolTipText() const
 
 			if (SourceString && TextValue.ShouldGatherForLocalization())
 			{
-#if NY_ENGINE_VERSION >= 500
+#if NY_ENGINE_VERSION >= 505
 				const FTextId TextId = FTextInspector::GetTextId(TextValue);
 				bIsLocalized = !TextId.IsEmpty();
 				if (bIsLocalized)
 				{
 					Namespace = TextId.GetNamespace().ToString();
 					Key = TextId.GetKey().ToString();
+				}
+#elif NY_ENGINE_VERSION >= 500
+				const FTextId TextId = FTextInspector::GetTextId(TextValue);
+				bIsLocalized = !TextId.IsEmpty();
+				if (bIsLocalized)
+				{
 				}
 #else
 				bIsLocalized = FTextLocalizationManager::Get().FindNamespaceAndKeyFromDisplayString(FTextInspector::GetSharedDisplayString(TextValue), Namespace, Key);
@@ -958,7 +964,12 @@ void SDlgTextPropertyEditableTextBox::HandleLocalizableCheckStateChanged(ECheckB
 					NewKey
 					);
 
+#if NY_ENGINE_VERSION >= 505
 				EditableTextProperty->SetText(TextIndex, FText::AsLocalizable_Advanced(*NewNamespace, *NewKey, *PropertyValue.ToString()));
+#else
+				EditableTextProperty->SetText(TextIndex, FInternationalization::Get().ForUseOnlyByLocMacroAndGraphNodeTextLiterals_CreateText(*PropertyValue.ToString(), *NewNamespace, *NewKey));
+#endif // NY_ENGINE_VERSION >= 505
+
 			}
 		}
 	}
